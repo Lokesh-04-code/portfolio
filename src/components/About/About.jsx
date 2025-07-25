@@ -39,7 +39,7 @@ const About = () => {
             I am a full-stack developer. Skilled in both front-end and back-end
             development, I specialize in the MERN stack and other modern
             technologies to create seamless user experiences and efficient
-            solutions ans ai/ml explorer.
+            solutions and ai/ml explorer.has strong foundation in dsa.
           </p>
           {/* Resume Button */}
           <a
