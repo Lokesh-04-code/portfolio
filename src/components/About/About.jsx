@@ -43,7 +43,7 @@ const About = () => {
           </p>
           {/* Resume Button */}
           <a
-            href="https://drive.google.com/file/d/10D75CPgtZ791hsnQVIGNvivI3WRICUZ8/view?usp=sharing"
+            href="https://drive.google.com/uc?export=download&id=1LTgVXy9ooFc36liTpoDmNhCe0OiL5Dz8"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block text-white py-3 px-8 rounded-full mt-5 text-lg font-bold transition duration-300 transform hover:scale-105"
