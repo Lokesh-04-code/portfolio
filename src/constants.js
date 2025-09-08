@@ -48,6 +48,7 @@ import vpsLogo from "./assets/education_logo/vit.png";
 // Project Section Logo's
 import githubdetLogo from "./assets/work_logo/FinMate.jpg";
 import csprepLogo from "./assets/work_logo/image.png";
+import Movie from "./assets/work_logo/movie.png";
 import movierecLogo from "./assets/work_logo/movie_rec.png";
 import taskremLogo from "./assets/work_logo/task_rem.png";
 import npmLogo from "./assets/work_logo/npm.png";
@@ -187,5 +188,15 @@ export const projects = [
     ],
     github: "https://github.com/Lokesh-04-code/HealtCare_appointment_booking",
     webapp: "https://safeslot.netlify.app/",
+  },
+  {
+    id: 2,
+    title: "Movie Recommends",
+    description:
+      "The Movie Recommendation Website helps users discover new films similar to the ones they already enjoy. By entering the name of a movie, the system suggests 5 related movies based on the storyline, director, or title. With a clean interface and smart recommendations, it makes finding your next favorite movie quick and easy.",
+    image: Movie,
+    tags: ["machine Learning"],
+    github: "https://github.com/Lokesh-04-code/movie_recommendation",
+    webapp: "https://finddmovie.netlify.app/",
   },
 ];
