@@ -193,7 +193,7 @@ export const projects = [
     id: 2,
     title: "Movie Recommends",
     description:
-      "The Movie Recommendation Website helps users discover new films similar to the ones they already enjoy. By entering the name of a movie, the system suggests 5 related movies based on the storyline, director, or title. With a clean interface and smart recommendations, it makes finding your next favorite movie quick and easy.(only Hoolywood)",
+      "The Movie Recommendation Website helps users discover new films similar to the ones they already enjoy. By entering the name of a movie, the system suggests 5 related movies based on the storyline, director, or title. With a clean interface and smart recommendations, it makes finding your next favorite movie quick and easy.(only Hollywood)",
     image: Movie,
     tags: ["machine Learning"],
     github: "https://github.com/Lokesh-04-code/movie_recommendation",
