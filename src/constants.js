@@ -162,16 +162,6 @@ export const education = [
 export const projects = [
   {
     id: 0,
-    title: "Movie Recommends",
-    description:
-      "The Movie Recommendation Website helps users discover new films similar to the ones they already enjoy. By entering the name of a movie, the system suggests 5 related movies based on the storyline, director, or title. With a clean interface and smart recommendations, it makes finding your next favorite movie quick and easy.(only Hollywood)",
-    image: Movie,
-    tags: ["machine Learning"],
-    github: "https://github.com/Lokesh-04-code/movie_recommendation",
-    webapp: "https://finddmovie.netlify.app/",
-  },
-  {
-    id: 1,
     title: "FinMate(Finance Tracker)",
     description:
       "Built a full-stack finance tracker for students to manage income, expenses, and budgets. Features include JWT auth, encrypted passwords, interactive dashboards (Recharts), recurring transactions, and dynamic filtering. Stack: React.js, Tailwind CSS, Express.js, MongoDB Atlas.",
@@ -181,7 +171,7 @@ export const projects = [
     webapp: "https://studysave.netlify.app/",
   },
   {
-    id: 2,
+    id: 1,
     title: "Hospital Management",
     description:
       "MERN stack project enabling hospitals to manage doctor-patient appointments efficiently. Prevents slot clashes with real-time validation. Admins can add doctors and manage their availability. Clean UI for patients to book slots and doctors to view schedules.",
@@ -198,5 +188,15 @@ export const projects = [
     ],
     github: "https://github.com/Lokesh-04-code/HealtCare_appointment_booking",
     webapp: "https://safeslot.netlify.app/",
+  },
+  {
+    id: 2,
+    title: "Movie Recommends",
+    description:
+      "The Movie Recommendation Website helps users discover new films similar to the ones they already enjoy. By entering the name of a movie, the system suggests 5 related movies based on the storyline, director, or title. With a clean interface and smart recommendations, it makes finding your next favorite movie quick and easy.(only Hollywood)",
+    image: Movie,
+    tags: ["machine Learning"],
+    github: "https://github.com/Lokesh-04-code/movie_recommendation",
+    webapp: "https://finddmovie.netlify.app/",
   },
 ];
