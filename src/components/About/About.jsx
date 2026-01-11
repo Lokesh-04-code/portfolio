@@ -43,7 +43,7 @@ const About = () => {
           </p>
           {/* Resume Button */}
           <a
-            href="https://drive.google.com/file/d/1H_IGKy9NNzYW1GG22Jen_mDuJ-ZddKPb/view?usp=drivesdk
+            href="https://drive.google.com/file/d/1OCXKvAyGlYo9xuVlC4q0IHkY8iLvtrE5/view?usp=drivesdk
 "
             target="_blank"
             rel="noopener noreferrer"
