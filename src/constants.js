@@ -34,6 +34,7 @@ import postgreLogo from "./assets/tech_logo/postgre.png";
 import csharpLogo from "./assets/tech_logo/csharp.png";
 import dsa from "./assets/tech_logo/dsa.jpg";
 import ml from "./assets/tech_logo/image.png";
+import docker from "./assets/tech_logo/docker.png";
 
 // Experience Section Logo's
 import webverseLogo from "./assets/company_logo/image.png";
@@ -76,6 +77,7 @@ export const SkillsInfo = [
       { name: "Express JS", logo: expressjsLogo },
       { name: "MySQL", logo: mysqlLogo },
       { name: "MongoDB", logo: mongodbLogo },
+      { name: "SpringBoot", logo: springbootLogo },
     ],
   },
   {
@@ -94,7 +96,7 @@ export const SkillsInfo = [
       { name: "GitHub", logo: githubLogo },
       { name: "VS Code", logo: vscodeLogo },
       { name: "Postman", logo: postmanLogo },
-
+      { name: "docker", logo: docker },
       { name: "Vercel", logo: vercelLogo },
       { name: "Netlify", logo: netlifyLogo },
     ],
@@ -134,7 +136,7 @@ export const education = [
     img: vpsLogo,
     school: "VIT-AP, Amaravathi",
     date: "August 2023 - March 2027(onGoing)",
-    grade: "9.13",
+    grade: "9.15",
     desc: "I am currently pursuing my Bachelor of Technology (B.Tech) in Computer Science and Engineering (CSE) from VIT AP. Throughout my studies, I have been actively exploring key areas such as Data Structures and Algorithms (DSA), MERN stack development, and Machine Learning (ML). This ongoing learning journey is helping me build a strong foundation in software development and intelligent systems. I am passionate about applying these skills to real-world projects, enhancing both my technical knowledge and problem-solving abilities.",
     degree: "Batchelor of technology-Computer Science",
   },
@@ -164,10 +166,10 @@ export const projects = [
     id: 0,
     title: "FinMate(Finance Tracker)",
     description:
-      "Built a full-stack finance tracker for students to manage income, expenses, and budgets. Features include JWT auth, encrypted passwords, interactive dashboards (Recharts), recurring transactions, and dynamic filtering. Stack: React.js, Tailwind CSS, Express.js, MongoDB Atlas.",
+      "Built a full-stack(java backend) finance tracker for students to manage income, expenses, and budgets. Features include JWT auth, encrypted passwords, interactive dashboards (Recharts), recurring transactions, and dynamic filtering. Stack: React.js, Tailwind CSS, Express.js, MongoDB Atlas.",
     image: githubdetLogo,
-    tags: ["HTML", "CSS", "JavaScript", "React JS", "express Js", "MongoDb"],
-    github: "https://github.com/Lokesh-04-code/FinMate",
+    tags: ["HTML", "CSS", "JavaScript", "React JS", "SpringBoot", "MongoDb"],
+    github: "https://github.com/Lokesh-04-code/FinMate_java",
     webapp: "https://studysave.netlify.app/",
   },
   {
@@ -193,7 +195,7 @@ export const projects = [
     id: 2,
     title: "Movie Recommends",
     description:
-      "The Movie Recommendation Website helps users discover new films similar to the ones they already enjoy. By entering the name of a movie, the system suggests 5 related movies based on the storyline, director, or title. With a clean interface and smart recommendations, it makes finding your next favorite movie quick and easy.(only Hollywood)",
+      "Note:wait for 2 to 3 minutes after website opens(ml model loading) .The Movie Recommendation Website helps users discover new films similar to the ones they already enjoy. By entering the name of a movie, the system suggests 5 related movies based on the storyline, director, or title. With a clean interface and smart recommendations, it makes finding your next favorite movie quick and easy.(only Hollywood)",
     image: Movie,
     tags: ["machine Learning"],
     github: "https://github.com/Lokesh-04-code/movie_recommendation",

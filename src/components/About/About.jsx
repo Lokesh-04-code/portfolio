@@ -22,9 +22,9 @@ const About = () => {
           </h2>
           {/* Skills Heading with Typing Effect */}
           <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 text-[#8245ec] leading-tight">
-            <span className="text-white">I am a </span>
+            <span className="text-white">I am </span>
             <ReactTypingEffect
-              text={["Mernstack Developer", "Ml Developer", "Coder"]}
+              text={["Fullstack Developer", "Ml Developer", "Coder"]}
               speed={100}
               eraseSpeed={50}
               typingDelay={500}
@@ -37,9 +37,9 @@ const About = () => {
           {/* About Me Paragraph */}
           <p className="text-base sm:text-lg md:text-lg text-gray-400 mb-10 mt-8 leading-relaxed">
             I am a full-stack developer. Skilled in both front-end and back-end
-            development, I specialize in the MERN stack and other modern
-            technologies to create seamless user experiences and efficient
-            solutions and ai/ml explorer.has strong foundation in dsa.
+            development, I specialize in the MERN stack and java(spring boot) to
+            create seamless user experiences and efficient solutions and ai/ml
+            explorer.has strong foundation in dsa.
           </p>
           {/* Resume Button */}
           <a
