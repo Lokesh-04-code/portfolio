@@ -35,6 +35,7 @@ import csharpLogo from "./assets/tech_logo/csharp.png";
 import dsa from "./assets/tech_logo/dsa.jpg";
 import ml from "./assets/tech_logo/image.png";
 import docker from "./assets/tech_logo/docker.png";
+import ms from "./assets/tech_logo/ms.png";
 
 // Experience Section Logo's
 import webverseLogo from "./assets/company_logo/image.png";
@@ -57,6 +58,7 @@ import webverLogo from "./assets/work_logo/web_dig.png";
 import cmLogo from "./assets/work_logo/cm.png";
 import imagesearchLogo from "./assets/work_logo/image_search.png";
 import removebgLogo from "./assets/work_logo/remove_bg.png";
+import { MdSafetyDivider } from "react-icons/md";
 
 export const SkillsInfo = [
   {
@@ -171,6 +173,24 @@ export const projects = [
     tags: ["HTML", "CSS", "JavaScript", "React JS", "SpringBoot", "MongoDb"],
     github: "https://github.com/Lokesh-04-code/FinMate_java",
     webapp: "https://studysave.netlify.app/",
+  },
+  {
+    id: 3,
+    title: "Microservices Architecture (Spring Boot)",
+    description:
+      "Developed a microservices-based backend system using Spring Boot and Docker. Implemented three independent services (Company, Job, Review) registered with Eureka Server for service discovery. Each service uses its own PostgreSQL database. Built RESTful APIs with full CRUD operations and containerized the entire system using Docker Compose.",
+    image: ms, // add your image import
+    tags: [
+      "Java",
+      "Spring Boot",
+      "Microservices",
+      "Eureka",
+      "Docker",
+      "PostgreSQL",
+      "REST API",
+    ],
+    github: "https://github.com/Lokesh-04-code/microservices-project",
+    webapp: "", // optional (leave empty if no frontend)
   },
   {
     id: 1,
