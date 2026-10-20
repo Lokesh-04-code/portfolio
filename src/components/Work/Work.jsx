@@ -1,16 +1,42 @@
-import React, { useState } from "react";
-import { projects } from "../../constants";
+import React, { useState, useEffect } from "react";
+import { supabase } from "../../lib/supabase";
+import { projects as FALLBACK_PROJECTS } from "../../constants";
+
+// Convert constants format for fallback
+const FALLBACK = FALLBACK_PROJECTS.map(p => ({
+  id: p.id,
+  title: p.title,
+  description: p.description,
+  tags: p.tags,
+  image_url: null,
+  _image: p.image, // original import
+  github_url: p.github,
+  live_url: p.webapp,
+  is_featured: false,
+  display_order: p.id,
+}));
 
 const Work = () => {
+  const [projects, setProjects] = useState(FALLBACK);
   const [selectedProject, setSelectedProject] = useState(null);
 
-  const handleOpenModal = (project) => {
-    setSelectedProject(project);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .order("display_order");
+      if (!error && data && data.length > 0) {
+        setProjects(data);
+      }
+    };
+    fetchData();
+  }, []);
 
-  const handleCloseModal = () => {
-    setSelectedProject(null);
-  };
+  const handleOpenModal = (project) => setSelectedProject(project);
+  const handleCloseModal = () => setSelectedProject(null);
+
+  const getImage = (project) => project.image_url || project._image || null;
 
   return (
     <section
@@ -22,8 +48,7 @@ const Work = () => {
         <h2 className="text-4xl font-bold text-white">PROJECTS</h2>
         <div className="w-32 h-1 bg-purple-500 mx-auto mt-4"></div>
         <p className="text-gray-400 mt-4 text-lg font-semibold">
-          A showcase of the projects I have worked on, highlighting my skills
-          and experience in various technologies
+          A showcase of the projects I have worked on, highlighting my skills and experience in various technologies
         </p>
       </div>
 
@@ -36,11 +61,19 @@ const Work = () => {
             className="border border-white bg-gray-900 backdrop-blur-md rounded-2xl shadow-2xl overflow-hidden cursor-pointer hover:shadow-purple-500/50 hover:-translate-y-2 transition-transform duration-300"
           >
             <div className="p-4">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-48 object-cover rounded-xl"
-              />
+              {getImage(project) ? (
+                <img
+                  src={getImage(project)}
+                  alt={project.title}
+                  className="w-full h-48 object-cover rounded-xl"
+                />
+              ) : (
+                <div className="w-full h-48 bg-gradient-to-br from-purple-900 to-gray-900 rounded-xl flex items-center justify-center">
+                  <span className="text-purple-300 text-4xl font-bold opacity-40">
+                    {project.title?.charAt(0)}
+                  </span>
+                </div>
+              )}
             </div>
             <div className="p-6">
               <h3 className="text-2xl font-bold text-white mb-2">
@@ -50,7 +83,7 @@ const Work = () => {
                 {project.description}
               </p>
               <div className="mb-4">
-                {project.tags.map((tag, index) => (
+                {(project.tags || []).map((tag, index) => (
                   <span
                     key={index}
                     className="inline-block bg-[#251f38] text-xs font-semibold text-purple-500 rounded-full px-2 py-1 mr-2 mb-2"
@@ -64,7 +97,7 @@ const Work = () => {
         ))}
       </div>
 
-      {/* Modal Container */}
+      {/* Modal */}
       {selectedProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 p-4">
           <div className="bg-gray-900 rounded-xl shadow-2xl lg:w-full w-[90%] max-w-3xl overflow-hidden relative">
@@ -79,11 +112,19 @@ const Work = () => {
 
             <div className="flex flex-col">
               <div className="w-full flex justify-center bg-gray-900 px-4">
-                <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  className="lg:w-full w-[95%] object-contain rounded-xl shadow-2xl"
-                />
+                {getImage(selectedProject) ? (
+                  <img
+                    src={getImage(selectedProject)}
+                    alt={selectedProject.title}
+                    className="lg:w-full w-[95%] object-contain rounded-xl shadow-2xl"
+                  />
+                ) : (
+                  <div className="w-full h-48 bg-gradient-to-br from-purple-900 to-gray-900 rounded-xl flex items-center justify-center">
+                    <span className="text-purple-300 text-5xl font-bold opacity-40">
+                      {selectedProject.title?.charAt(0)}
+                    </span>
+                  </div>
+                )}
               </div>
               <div className="lg:p-8 p-6">
                 <h3 className="lg:text-3xl font-bold text-white mb-4 text-md">
@@ -93,7 +134,7 @@ const Work = () => {
                   {selectedProject.description}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {selectedProject.tags.map((tag, index) => (
+                  {(selectedProject.tags || []).map((tag, index) => (
                     <span
                       key={index}
                       className="bg-[#251f38] text-xs font-semibold text-purple-500 rounded-full px-2 py-1"
@@ -103,22 +144,26 @@ const Work = () => {
                   ))}
                 </div>
                 <div className="flex gap-4">
-                  <a
-                    href={selectedProject.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-1/2 bg-gray-800 hover:bg-purple-800 text-gray-400 lg:px-6 lg:py-2 px-2 py-1 rounded-xl lg:text-xl text-sm font-semibold text-center"
-                  >
-                    View Code
-                  </a>
-                  <a
-                    href={selectedProject.webapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-1/2 bg-purple-600 hover:bg-purple-800 text-white lg:px-6 lg:py-2 px-2 py-1 rounded-xl lg:text-xl text-sm font-semibold text-center"
-                  >
-                    View Live
-                  </a>
+                  {(selectedProject.github_url || selectedProject.github) && (
+                    <a
+                      href={selectedProject.github_url || selectedProject.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-1/2 bg-gray-800 hover:bg-purple-800 text-gray-400 lg:px-6 lg:py-2 px-2 py-1 rounded-xl lg:text-xl text-sm font-semibold text-center"
+                    >
+                      View Code
+                    </a>
+                  )}
+                  {(selectedProject.live_url || selectedProject.webapp) && (
+                    <a
+                      href={selectedProject.live_url || selectedProject.webapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-1/2 bg-purple-600 hover:bg-purple-800 text-white lg:px-6 lg:py-2 px-2 py-1 rounded-xl lg:text-xl text-sm font-semibold text-center"
+                    >
+                      View Live
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

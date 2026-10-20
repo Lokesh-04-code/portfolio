@@ -2,17 +2,30 @@ import React, { useState, useEffect } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
+import { supabase } from "../../lib/supabase";
+
+const DEFAULT_LINKS = {
+  github_url: "https://github.com/Lokesh-04-code",
+  linkedin_url: "https://in.linkedin.com/in/lokesh-gembali-74b574305",
+  leetcode_url: "https://leetcode.com/u/Lokesh738/",
+  name: "Lokesh",
+};
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [profile, setProfile] = useState(DEFAULT_LINKS);
+
+  // Fetch profile links
+  useEffect(() => {
+    supabase.from("profile").select("name,github_url,linkedin_url,leetcode_url").single()
+      .then(({ data }) => { if (data) setProfile({ ...DEFAULT_LINKS, ...data }); });
+  }, []);
 
   // Detect scroll and change navbar background
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -21,11 +34,8 @@ const Navbar = () => {
   const handleMenuItemClick = (sectionId) => {
     setActiveSection(sectionId);
     setIsOpen(false);
-
     const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
+    if (section) section.scrollIntoView({ behavior: "smooth" });
   };
 
   const menuItems = [
@@ -35,6 +45,9 @@ const Navbar = () => {
     { id: "work", label: "Projects" },
     { id: "education", label: "Education" },
   ];
+
+  // Display first name only from full name
+  const displayName = profile.name?.split(' ')[0] || 'Lokesh';
 
   return (
     <nav
@@ -48,9 +61,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="text-lg font-semibold cursor-pointer">
           <span className="text-[#8245ec]">&lt;</span>
-          <span className="text-white">Lokesh</span>
-
-          <span className="text-white"></span>
+          <span className="text-white">{displayName}</span>
           <span className="text-[#8245ec]">&gt;</span>
         </div>
 
@@ -72,28 +83,13 @@ const Navbar = () => {
 
         {/* Social Icons */}
         <div className="hidden md:flex space-x-4">
-          <a
-            href="https://github.com/Lokesh-04-code"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-[#8245ec]"
-          >
+          <a href={profile.github_url} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-[#8245ec]">
             <FaGithub size={24} />
           </a>
-          <a
-            href="https://in.linkedin.com/in/lokesh-gembali-74b574305"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-[#8245ec]"
-          >
+          <a href={profile.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-[#8245ec]">
             <FaLinkedin size={24} />
           </a>
-          <a
-            href="https://leetcode.com/u/Lokesh738/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-[#8245ec]"
-          >
+          <a href={profile.leetcode_url} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-[#8245ec]">
             <SiLeetcode size={24} />
           </a>
         </div>
@@ -101,15 +97,9 @@ const Navbar = () => {
         {/* Mobile Menu Icon */}
         <div className="md:hidden">
           {isOpen ? (
-            <FiX
-              className="text-3xl text-[#8245ec] cursor-pointer"
-              onClick={() => setIsOpen(false)}
-            />
+            <FiX className="text-3xl text-[#8245ec] cursor-pointer" onClick={() => setIsOpen(false)} />
           ) : (
-            <FiMenu
-              className="text-3xl text-[#8245ec] cursor-pointer"
-              onClick={() => setIsOpen(true)}
-            />
+            <FiMenu className="text-3xl text-[#8245ec] cursor-pointer" onClick={() => setIsOpen(true)} />
           )}
         </div>
       </div>
@@ -131,28 +121,13 @@ const Navbar = () => {
               </li>
             ))}
             <div className="flex space-x-4">
-              <a
-                href="https://github.com/Lokesh-04-code"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white"
-              >
+              <a href={profile.github_url} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white">
                 <FaGithub size={24} />
               </a>
-              <a
-                href="https://in.linkedin.com/in/lokesh-gembali-74b574305"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white"
-              >
+              <a href={profile.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white">
                 <FaLinkedin size={24} />
               </a>
-              <a
-                href="https://leetcode.com/u/Lokesh738/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-[#8245ec]"
-              >
+              <a href={profile.leetcode_url} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-[#8245ec]">
                 <SiLeetcode size={24} />
               </a>
             </div>
