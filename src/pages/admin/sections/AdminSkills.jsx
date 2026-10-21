@@ -6,9 +6,9 @@ import {
 } from '../../../components/admin/AdminUI';
 import { FaPlus, FaEdit, FaTrash, FaTools } from 'react-icons/fa';
 
-const CATEGORIES = ['Frontend', 'Backend', 'Languages', 'Tools', 'Others'];
+const DEFAULT_CATEGORIES = ['Frontend', 'Backend', 'Languages', 'Tools', 'Others'];
 
-const EMPTY_SKILL = { name: '', category: 'Frontend', logo_url: '', display_order: 0 };
+const EMPTY_SKILL = { name: '', category: 'Frontend', customCategory: '', logo_url: '', display_order: 0 };
 
 const AdminSkills = () => {
   const [skills, setSkills] = useState([]);
@@ -40,11 +40,20 @@ const AdminSkills = () => {
 
   const handleChange = (field) => (e) => setForm(prev => ({ ...prev, [field]: e.target.value }));
 
+  // Dynamic list of unique categories
+  const categoryOptions = Array.from(
+    new Set([
+      ...DEFAULT_CATEGORIES,
+      ...skills.map(s => s.category).filter(Boolean)
+    ])
+  );
+
   const handleEdit = (skill) => {
     setEditing(skill.id);
     setForm({
       name: skill.name,
-      category: skill.category,
+      category: skill.category || 'Frontend',
+      customCategory: '',
       logo_url: skill.logo_url || '',
       display_order: skill.display_order,
     });
@@ -59,9 +68,20 @@ const AdminSkills = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
+
+    const finalCategory = (form.category === '__custom__'
+      ? form.customCategory.trim()
+      : form.category.trim());
+
+    if (!finalCategory) {
+      showAlert('error', 'Please specify a category name.');
+      setSaving(false);
+      return;
+    }
+
     const payload = {
       name: form.name.trim(),
-      category: form.category,
+      category: finalCategory,
       logo_url: form.logo_url.trim() || null,
       display_order: parseInt(form.display_order) || 0,
     };
@@ -95,8 +115,8 @@ const AdminSkills = () => {
     setDeleting(false);
   };
 
-  // Group by category
-  const grouped = CATEGORIES.reduce((acc, cat) => {
+  // Group by category dynamically
+  const grouped = categoryOptions.reduce((acc, cat) => {
     acc[cat] = skills.filter(s => s.category === cat);
     return acc;
   }, {});
@@ -120,9 +140,31 @@ const AdminSkills = () => {
               label="Skill Name" id="skill-name" value={form.name}
               onChange={handleChange('name')} placeholder="React JS" required
             />
-            <FormSelect label="Category" id="skill-cat" value={form.category} onChange={handleChange('category')}>
-              {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-            </FormSelect>
+            
+            <div>
+              <FormSelect 
+                label="Category" 
+                id="skill-cat" 
+                value={form.category} 
+                onChange={handleChange('category')}
+              >
+                {categoryOptions.map(c => <option key={c} value={c}>{c}</option>)}
+                <option value="__custom__">+ Add New Category...</option>
+              </FormSelect>
+              {form.category === '__custom__' && (
+                <div className="mt-2">
+                  <FormInput
+                    label="New Category Name"
+                    id="skill-custom-cat"
+                    value={form.customCategory}
+                    onChange={handleChange('customCategory')}
+                    placeholder="e.g. Cloud & DevOps"
+                    required
+                  />
+                </div>
+              )}
+            </div>
+
             <FormInput
               label="Logo URL (optional)" id="skill-logo" value={form.logo_url}
               onChange={handleChange('logo_url')} placeholder="https://..."
@@ -146,7 +188,7 @@ const AdminSkills = () => {
         <EmptyState icon={<FaTools />} title="No skills yet" subtitle="Add your first skill using the form above." />
       ) : (
         <div className="space-y-6">
-          {CATEGORIES.map(cat => grouped[cat].length > 0 && (
+          {categoryOptions.map(cat => (grouped[cat]?.length > 0) && (
             <AdminCard key={cat}>
               <h3 className="text-purple-400 font-semibold mb-4">{cat}</h3>
               <div className="space-y-2">
@@ -190,3 +232,4 @@ const AdminSkills = () => {
 };
 
 export default AdminSkills;
+
